@@ -16,7 +16,9 @@ def students_list(request):
         serializer = StudentSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return Response(status=status.HTTP_201_CREATED)
+            data = Student.objects.all()
+            serializer = StudentSerializer(data, context={'request': request}, many=True)
+            return Response(serializer.data,status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['PUT', 'DELETE'])

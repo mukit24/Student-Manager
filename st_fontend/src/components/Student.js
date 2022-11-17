@@ -8,6 +8,7 @@ const Student = ({ student }) => {
             <td>{student.phone}</td>
             <td>{student.email}</td>
             <td>{student.registrationDate}</td>
+            <td>Edit Delete</td>
         </tr>
     )
 }
