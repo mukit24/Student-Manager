@@ -1,9 +1,10 @@
 import { Link } from "react-router-dom";
 import Student from "./Student";
-const StudentList = ({ studentList }) => {
+const StudentList = ({ studentList, onDelete, onEditClick }) => {
     return (
         <>
-            <table className='table table-responsive table-light table-bordered'>
+        <div className="table-responsive">
+            <table className='table table-light table-bordered'>
                 <thead className="table-dark">
                     <tr>
                         <th scope="col">Name</th>
@@ -17,11 +18,13 @@ const StudentList = ({ studentList }) => {
                 <tbody>
                     {
                         studentList.map((student) => (
-                            <Student key={student.pk} student={student} />
+                            <Student key={student.pk} onEditClick = {onEditClick} student={student} onDelete={onDelete} />
                         ))
                     }
                 </tbody>
             </table>
+        </div>
+            
             <div className="d-flex justify-content-end">
                 <Link to='/add'>
                     <button className='btn btn-success'>Add New Student</button>

@@ -18,11 +18,13 @@ def students_list(request):
             serializer.save()
             data = Student.objects.all()
             serializer = StudentSerializer(data, context={'request': request}, many=True)
+            print(serializer.data)
             return Response(serializer.data,status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-@api_view(['PUT', 'DELETE'])
+@api_view(['PUT','DELETE'])
 def students_detail(request, pk):
+    print(request)
     try:
         student = Student.objects.get(pk=pk)
     except Student.DoesNotExist:
@@ -32,7 +34,8 @@ def students_detail(request, pk):
         serializer = StudentSerializer(student, data=request.data,context={'request': request})
         if serializer.is_valid():
             serializer.save()
-            return Response(status=status.HTTP_204_NO_CONTENT)
+            return Response(serializer.data,status=status.HTTP_200_OK)
+        print(serializer.errors)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     elif request.method == 'DELETE':
